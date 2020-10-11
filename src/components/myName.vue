@@ -1,47 +1,49 @@
 <template>
-  <div id="app">
+  <div>
     <header>
-      <h1>Vue Course Goals</h1>
+      <h1>Vue Events</h1>
     </header>
-    <section id="user-goal">
-      <h2>My Course Goal</h2>
-      <!-- <p v-html="outputGoal()"></p> -->
-      <p>{{ outputGoal() }}</p>
-      <p>Learn more <a v-bind:href="vueLink">about Vue</a>.</p>
+    <section id="events">
+      <h2>Events in Action</h2>
+      <button v-on:click="add(5)">Add 5</button>
+      <button v-on:click="reduce(5)">Reduce 5</button>
+      <p>Result: {{ counter }}</p>
+      <input type="text" v-on:input="setName">
+      <p>Your Name: {{ name }}</p>
     </section>
-    <myName />
   </div>
 </template>
 
 <script>
-import myName from './components/myName.vue'
 
 export default {
-  name: 'App',
-  components: {
-    myName
-  },
+  name: 'myName',
+  props: {
+    msg: String
+  }, 
   data() {
     return {
-      courseGoalA: 'Finish the course and learn Vue!',
-      courseGoalB: 'Master Vue and build amazing apps!',
-      vueLink: 'https://vuejs.org/'
+      counter: 0,
+      name: ''
     };
   },
   methods: {
-    outputGoal() {
-      const randomNumber = Math.random();
-      if (randomNumber < 0.5) {
-        return this.courseGoalA;
-      } else {
-        return this.courseGoalB;
-      }
+    add(num) {
+      this.counter = this.counter + num;
+    },
+    reduce(num) {
+      this.counter = this.counter - num;
+    },
+    setName(event) {
+      this.name = event.target.value;
     }
   }
 }
+
 </script>
 
-<style>
+<style scoped>
+
 * {
   box-sizing: border-box;
 }
@@ -66,7 +68,7 @@ header {
   max-width: 40rem;
 }
 
-#user-goal {
+#events {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin: 3rem auto;
   border-radius: 10px;
@@ -76,14 +78,14 @@ header {
   max-width: 40rem;
 }
 
-#user-goal h2 {
+#events h2 {
   font-size: 2rem;
   border-bottom: 4px solid #ccc;
   color: #4fc08d;
   margin: 0 0 1rem 0;
 }
 
-#user-goal p {
+#events p {
   font-size: 1.25rem;
   font-weight: bold;
   border: 1px solid #4fc08d;
@@ -93,18 +95,18 @@ header {
   border-radius: 25px;
 }
 
-#user-goal input {
+#events input {
   font: inherit;
   border: 1px solid #ccc;
 }
 
-#user-goal input:focus {
+#events input:focus {
   outline: none;
   border-color: #1b995e;
   background-color: #d7fdeb;
 }
 
-#user-goal button {
+#events button {
   font: inherit;
   cursor: pointer;
   border: 1px solid #ff0077;
@@ -112,10 +114,12 @@ header {
   color: white;
   padding: 0.05rem 1rem;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.26);
+  border-radius: 20px;
+  margin: 0 1rem;
 }
 
-#user-goal button:hover,
-#user-goal button:active {
+#events button:hover,
+#events button:active {
   background-color: #ec3169;
   border-color: #ec3169;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
