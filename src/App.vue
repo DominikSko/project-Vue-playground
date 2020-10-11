@@ -10,16 +10,25 @@
       <p>Learn more <a v-bind:href="vueLink">about Vue</a>.</p>
     </section>
     <myName />
+    <events />
+    <TaskTwo />
+    <VueStyle />
   </div>
 </template>
 
 <script>
 import myName from './components/myName.vue'
+import events from './components/events.vue'
+import TaskTwo from './components/TaskTwo.vue'
+import VueStyle from './components/VueStyle.vue'
 
 export default {
   name: 'App',
   components: {
-    myName
+    myName,
+    events,
+    TaskTwo,
+    VueStyle
   },
   data() {
     return {

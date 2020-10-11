@@ -5,11 +5,25 @@
     </header>
     <section id="events">
       <h2>Events in Action</h2>
-      <button v-on:click="add(5)">Add 5</button>
-      <button v-on:click="reduce(5)">Reduce 5</button>
+      <button @click.left="add(10)">Add 10</button>
+      <button @click="reduce(5)">Reduce 5</button>
+      <p v-once>Starting Counter: {{ counter }}</p>
       <p>Result: {{ counter }}</p>
-      <input type="text" v-on:input="setName">
-      <p>Your Name: {{ name }}</p>
+      <input 
+        type="text" 
+        v-model="name">
+        <!-- v-on:input="setName($event, 'Kowalski')" 
+             v-on:keyup.enter="confirmedImput"> v-model to robi! 
+             v-on:click -> @click, v-bind:click -> :click     -->
+      <input 
+        type="text" 
+        v-model="lastName">
+      <button v-on:click="resetInput">Reset Input</button>
+      <p>Your Name: {{ fullName }}</p>
+      <form 
+        v-on:submit.prevent="submitForm">
+        <button>Sign Up</button>
+      </form>
     </section>
   </div>
 </template>
@@ -24,18 +38,70 @@ export default {
   data() {
     return {
       counter: 0,
-      name: ''
+      name: '',
+      confirmedName: '',
+      lastName: ''
     };
   },
+  watch: {  // watchers, for optimalization, http requests, timers, for watching
+    counter(value) {
+      if (value > 50){
+        const that = this;
+        setTimeout(function () {
+          that.counter = 0;
+        }, 2000);
+      }
+    }
+    // name(value) {
+    //   if (value === ''){
+    //     this.fullname = ''
+    //   } else {
+    //     this.fullname = value + '' + this.lastName;
+    //   }
+    // },
+    // lastName(value){
+    //   if (value === ''){
+    //     this.fullname = ''
+    //   } else {
+    //     this.fullname = this.name + '' + value;
+    //   }
+    // }
+  },
+  computed: { // aby vue nie wywylowal metody z html za kazdym razem, do wyswietlania danych a nie odswiezania co chwile, optymalizacja
+    fullName() {
+      console.log('Running this method again...')
+      if (this.name === '' || this.lastName === '') {
+        return '';
+      } 
+      return this.name + '' + this.lastName;
+    }
+  },
   methods: {
+    confirmedImput() {
+      this.confirmedName = this.name;
+    },
+    outputFullname(){
+      console.log('Running this method again...')
+      if (this.name === '') {
+        return '';
+      } 
+      return this.name + '' + 'Kowalski?';
+    },
     add(num) {
       this.counter = this.counter + num;
     },
     reduce(num) {
       this.counter = this.counter - num;
     },
-    setName(event) {
-      this.name = event.target.value;
+    setName(event, lastName) {
+      this.name = event.target.value + '' + lastName;
+    },
+    submitForm() {
+      alert('Submitted');
+    },
+    resetInput() {
+      this.name = '';
+      this.lastName = '';
     }
   }
 }
