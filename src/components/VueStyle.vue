@@ -6,12 +6,12 @@
     <section id="styling">
       <div 
        class="demo"
-      :class="{active: boxASelected}" 
+      :class="boxAClasses" 
       @click="boxSelected('A')"
       ></div>
       <div 
       class="demo" 
-      :class="{active: boxBSelected}" 
+      :class="['demo', {active: boxBSelected}]" 
       @click="boxSelected('B')"></div>
       <div 
       class="demo" 
@@ -29,6 +29,11 @@
         boxASelected: false,
         boxBSelected: false,
         boxCSelected: false
+      }
+    },
+    computed: {  // do dynamicznych styli 
+      boxAClasses() {
+        return {active: this.boxASelected}
       }
     },
     methods: {
