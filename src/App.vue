@@ -13,6 +13,8 @@
     <events />
     <TaskTwo />
     <VueStyle />
+    <VueStyle2 />
+    <Tasks />
   </div>
 </template>
 
@@ -21,6 +23,8 @@ import myName from './components/myName.vue'
 import events from './components/events.vue'
 import TaskTwo from './components/TaskTwo.vue'
 import VueStyle from './components/VueStyle.vue'
+import VueStyle2 from './components/VueStyle2.vue'
+import Tasks from './components/tasks/Tasks.vue'
 
 export default {
   name: 'App',
@@ -28,7 +32,9 @@ export default {
     myName,
     events,
     TaskTwo,
-    VueStyle
+    VueStyle,
+    VueStyle2,
+    Tasks
   },
   data() {
     return {
